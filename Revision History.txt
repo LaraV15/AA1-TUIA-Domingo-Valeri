@@ -1,0 +1,3 @@
+Se le devolvió al dataframe original -df- su columna Date.
+No se computan valores faltantes con datos del futuro (tiene más sentido para un modelo que quiere predecir el futuro).
+Se completan faltantes con la mediana y promedio solo con la data de training.
