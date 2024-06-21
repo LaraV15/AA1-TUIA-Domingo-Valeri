@@ -122,6 +122,9 @@ class data():
         t_df_adelaide = df_training[(df_training["Location_Canberra"]==0)&(df_training["Location_Cobar"]==0)&(df_training["Location_Dartmoor"]==0)&(df_training["Location_Melbourne"]==0)&(df_training["Location_MountGambier"]==0)&(df_training["Location_Sydney"]==0)]
         t_df_cities = [t_df_adelaide,t_df_canberra,t_df_cobar,t_df_dartmoor,t_df_melbourne,t_df_mountgambier,t_df_sydney]
 
+
+        #lara, puede ser que faltaba la linea del def
+        df = self.dataset.copy()
         df_canberra = df[df["Location_Canberra"]==1]
         df_cobar = df[df["Location_Cobar"]==1]
         df_dartmoor = df[df["Location_Dartmoor"]==1]
