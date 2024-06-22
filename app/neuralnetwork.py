@@ -4,6 +4,7 @@ from tensorflow.keras.models import Sequential
 from tensorflow.keras.layers import Dense
 from tensorflow.keras import backend as K
 
+@tf.keras.utils.register_keras_serializable()
 def recall_positive_class(y_true, y_pred):
     y_true = tf.cast(y_true, tf.float32)
     y_pred = tf.cast(y_pred, tf.float32)
@@ -21,7 +22,7 @@ class NeuralNetwork:
         self.units = units
         self.activations = activations
         self.model = None
-
+    
     def build_model(self):
         model = tf.keras.models.Sequential()
         model.add(tf.keras.layers.Dense(self.units[0], activation=self.activations[0], input_shape=(self.input_shape,)))

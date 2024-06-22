@@ -104,9 +104,20 @@ if st.button('Predecir'):
           Xc = classification_pipeline(to_predict)
           
           # models load
-          model1 = joblib.load('app/regression.joblib')
-          nn = joblib.load('app/classification.joblib')
+          model1 = joblib.load('regression.joblib')
+          nn = joblib.load('classification.joblib')
 
           # predictions
+          y = model1.predict(X)
+          yc = nn.predict_ones_and_zeros(Xc)
+          
+          if yc[0][0]==0:
+               st.write('Creemos que mañana no lloverá.')
+          else:
+               st.write('Creemos que mañana lloverá.')
+          
+          st.write(f'En caso de lluvia, estimamos que caerán {y[0].round(2)} milímetros.')
+          
+
      else:
         st.write('Complete RainToday para continuar')

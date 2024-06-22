@@ -9,7 +9,7 @@ def common_pipeline(to_predict):
 	
 	# Dummies
 	palabrasObject = ["Location",  "RainToday"]
-	to_predict = pd.get_dummies(to_predict, columns = palabrasObject, drop_first=True, dtype=int)
+	to_predict = pd.get_dummies(to_predict, columns = palabrasObject, drop_first=False, dtype=int)
 
 	# Wind code
 	values = ['NW', 'ENE', 'SSE', 'SE', 'E', 'S', 'N', 'WNW', 'ESE', 'NE', 'NNE', 'NNW', 'SW', 'W', 'WSW', 'SSW']
@@ -28,7 +28,7 @@ def common_pipeline(to_predict):
 
 def regression_pipeline(to_predict):
 	to_predict = common_pipeline(to_predict)
-	
+
 	# Saco columnas de clasificacion
 	todas_las_columnas = list(to_predict.columns)
 	columnas_reg = []
@@ -41,9 +41,6 @@ def regression_pipeline(to_predict):
 	features = ['Humidity3pm', 'Sunshine', 'Rainfall', 'Cloud3pm', 'WindGustSpeed', 'Pressure3pm', 'Pressure9am', 'Cloud9am', 'Humidity9am', 'Temp3pm']
 	to_predict = to_predict[features]
 
-	
-
-	# 
 	return to_predict
 
 def classification_pipeline(to_predict):
@@ -51,12 +48,13 @@ def classification_pipeline(to_predict):
 	
 	# Saco columnas de regresión lineal
 	todas_las_columnas = list(to_predict.columns)
+
 	columnas_clas = []
 	for i in todas_las_columnas:
 		if "Location" not in i and "RainfallTomorrow" not in i and "Date" not in i:
 			columnas_clas.append(i)
 	to_predict = to_predict[columnas_clas]
-
+	
 	# Scale
 	scaler = StandardScaler()
 	to_predict = scaler.fit_transform(to_predict)

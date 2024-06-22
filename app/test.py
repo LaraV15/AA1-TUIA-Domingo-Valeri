@@ -27,10 +27,7 @@ data = {
     'Temp3pm': [33],
     'RainToday': ['No']
 }
-
 to_predict = pd.DataFrame(data)
-
 X = regression_pipeline(to_predict)
 Xc = classification_pipeline(to_predict)
-
-print(Xc.info())
+print(Xc.shape)
