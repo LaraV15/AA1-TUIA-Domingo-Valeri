@@ -52,5 +52,5 @@ class NeuralNetwork:
     
     def predict_ones_and_zeros(self, rows):
         predictions_c = self.predict(rows)
-        predicted_classes_c = (predictions_c > 0.5).astype('int32')
+        predicted_classes_c = (predictions_c > 0.34).astype('int32')
         return predicted_classes_c

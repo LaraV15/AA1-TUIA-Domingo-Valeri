@@ -1,5 +1,6 @@
 import pandas as pd
 import numpy as np
+import joblib
 from sklearn.preprocessing import StandardScaler
 from imblearn.over_sampling import RandomOverSampler, SMOTE
 
@@ -10,6 +11,10 @@ def common_pipeline(to_predict):
 	# Dummies
 	palabrasObject = ["Location",  "RainToday"]
 	to_predict = pd.get_dummies(to_predict, columns = palabrasObject, drop_first=False, dtype=int)
+
+	# RainToday bug fix
+	if 'RainToday_Yes' not in to_predict.columns and 'RainToday_No' in to_predict.columns:
+		to_predict.rename(columns={'RainToday_No': 'RainToday_Yes'}, inplace=True)
 
 	# Wind code
 	values = ['NW', 'ENE', 'SSE', 'SE', 'E', 'S', 'N', 'WNW', 'ESE', 'NE', 'NNE', 'NNW', 'SW', 'W', 'WSW', 'SSW']
@@ -56,7 +61,9 @@ def classification_pipeline(to_predict):
 	to_predict = to_predict[columnas_clas]
 	
 	# Scale
-	scaler = StandardScaler()
-	to_predict = scaler.fit_transform(to_predict)
+	scaler = joblib.load('nn_scaler.joblib')
+	to_predict_scaled = scaler.transform(to_predict)
 	
-	return to_predict
+	print("POST SCALAR: ")
+	print(to_predict_scaled)
+	return to_predict_scaled

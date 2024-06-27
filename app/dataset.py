@@ -190,6 +190,8 @@ class data():
         scaler = StandardScaler()
         self.Xc_train = scaler.fit_transform(self.Xc_train)
         self.Xc_test = scaler.transform(self.Xc_test)
+        import joblib
+        joblib.dump(scaler, 'nn_scaler.joblib')
 
     def classification_smote(self):
         smote = SMOTE(random_state=42)
